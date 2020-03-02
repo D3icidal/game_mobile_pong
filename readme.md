@@ -15,5 +15,9 @@ Socket.io – To create the websocket connection between our browser and phone
 HTML5 Canvas - To render the game
 
 
-
+## Guides used
 https://artandlogic.com/2013/06/phone-to-browser-html5-gaming-using-node-js-and-socket-io/var
+
+https://socket.io/get-started/chat/
+
+https://www.html5rocks.com/en/tutorials/websockets/basics/
