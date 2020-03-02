@@ -7,6 +7,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
+//for any public folders such as CSS
 app.use(express.static(__dirname + '/public'));
 
 io.on('connection', function(socket){
