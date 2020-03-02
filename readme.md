@@ -8,5 +8,12 @@ Game visuals will be based on my breakout game which uses HTML5 Canvas with geom
 ## Mobile interaction
 Phones will be used as a controller to raise/lower the paddles, and tapping the phone will shoot a ball/bullet (in future update)
 
+## Tools
+Node.js – To serve our app
+Express – Web App Framework for Node.js
+Socket.io – To create the websocket connection between our browser and phone
+HTML5 Canvas - To render the game
 
-https://artandlogic.com/2013/06/phone-to-browser-html5-gaming-using-node-js-and-socket-io/
+
+
+https://artandlogic.com/2013/06/phone-to-browser-html5-gaming-using-node-js-and-socket-io/var
