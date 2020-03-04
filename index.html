@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width">
     <title>Pong Mobile - HTML5 Canvas, Node.js, Express, Websockets Socket.io</title>
     <link type="text/css" href="/css/style.css" rel="stylesheet"></link>
+
     <script src="/socket.io/socket.io.js"></script>
+
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+
+    <!-- CREATE.JS Tools -->
     <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
     <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
     <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
-    <script src="pong.js"></script>
+    <script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
+
+
+    <script src="/scripts/pong.js"></script>
+
     <!-- <script src="easel.js"></script> -->
     <!-- <script src="Tween.js"></script>
     <script src="sound.js"></script>
     <script src="Main.js"></script> -->
-    <script>
+    <!-- <script>
       $(function () {
        var socket = io();
        $('form').submit(function(e){
@@ -28,12 +36,12 @@
          $('#messages').append($('<li>').text(msg));
        });
       });
-    </script>
+    </script> -->
   </head>
 
   <body onload="Main();">
 
-    <canvas id="Pong" width="480" height="320"></canvas> 
+    <canvas id="Pong" width="480" height="320"></canvas>
     <!-- <ul id="messages"></ul>
     <form action="">
       <input id="m" autocomplete="off"></input><button>Send</button>
