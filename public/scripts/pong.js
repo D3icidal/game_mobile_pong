@@ -48,7 +48,7 @@ var startB;
 var creditsBImg = new Image();
 var creditsB;
 
-var TitleView = new createjs.Container();
+var TitleView = new  createjs.Container();
 
 function Main()
 {
@@ -60,20 +60,7 @@ function Main()
 
   stage.mouseEventsEnabled = true;
 
-
-  /* Ticker */
-  createjs.Ticker.addEventListener("tick", handleTick);
-  // Ticker.setFPS(30);
-  createjs.Ticker.framerate = 30;
-  // createjs.Ticker.addListener(stage);
-
-  function handleTick(event) {
-    // Actions carried out each tick (aka frame)
-    if (!event.paused) {
-        stage.update()
-    }
-  }
-
+  preloadAssets()
 
   /* Load GFX */
   bgImg.src = 'bg.png';
@@ -115,8 +102,6 @@ function Main()
   loseImg.src = 'lose.png';
   loseImg.name = 'lose';
   loseImg.onload = loadGfx;
-
-
 }
 
 
@@ -140,7 +125,28 @@ function loadGfx(e)
     {
         addTitleView();
     }
-}
+
+
+    /* Ticker */
+    // createjs.Ticker.addEventListener("tick", handleTick);
+    createjs.Ticker.addEventListener("tick", handleTick);
+    // createjs.Ticker.setFPS(30);
+    createjs.Ticker.framerate = 30;
+    // createjs.Ticker.addListener(stage);
+
+    function handleTick(event) {
+      // Actions carried out each tick (aka frame)
+      if (!event.paused) {
+        console.log("TICK!!!");
+        update()
+        // stage.update(event)
+      }
+    }
+
+  }
+
+
+
 
 
 // function listFiles(fileType)
@@ -158,16 +164,40 @@ function loadGfx(e)
 // });
 // }
 
+function handleComplete() {
+     createjs.Sound.play("hit");
+     // var image = queue.getResult("myImage");
+     // document.body.appendChild(image);
+ }
 
+function handleFileLoad(event) {
+    // var item = event.item; // A reference to the item that was passed in to the LoadQueue
+    // var type = item.type;
+    //
+    // // Add any images to the page body.
+    // if (type == createjs.Types.IMAGE) {
+    //     document.body.appendChild(event.result);
+    // }
+}
+
+function handleFileLoad(event) {
+    var item = event.item; // A reference to the item that was passed in to the LoadQueue
+    var type = item.type;
+
+    // Add any images to the page body.
+    if (type == createjs.Types.IMAGE) {
+        document.body.appendChild(event.result);
+    }
+}
 
 
 function preloadAssets()
 {
-
   var queue = new createjs.LoadQueue();
-  createjs.Sound.alternateExtensions = ["mp3"];
   queue.installPlugin(createjs.Sound);
-  queue.on("complete", handleComplete);
+  queue.on("fileload", handleFileLoad, this);
+  queue.on("complete", handleComplete, this);
+  createjs.Sound.alternateExtensions = ["mp3"];
 
   // /* Sound */
   // createjs.Sound.addBatch([
@@ -177,11 +207,11 @@ function preloadAssets()
     // {name:'wall', src:'wall.mp3', instances:1}]);
 
   //Sound
-  queue.loadFile(
-  {id:'hit', src:'assets/hit.mp3', instances:1},
-  {id:'playerScore', src:'assets/playerScore.mp3', instances:1},
-  {id:'enemyScore', src:'assets/enemyScore.mp3', instances:1},
-  {id:'wall', src:'assets/wall.mp3', instances:1});
+  queue.loadManifest(
+  {id:'hit', src:'/sounds/hit.mp3', instances:1},
+  {id:'playerScore', src:'/sounds/playerScore.mp3', instances:1},
+  {id:'enemyScore', src:'/sounds/enemyScore.mp3', instances:1},
+  {id:'wall', src:'/sounds/wall.mp3', instances:1});
 
 }
 
@@ -248,12 +278,14 @@ function addGameView()
 
     // Score
 
-    playerScore = new Text('0', 'bold 20px Arial', '#A3FF24');
+    playerScore = new createjs.Text('0', 'bold 20px Arial', '#A3FF24');
+    playerScore.textBaseline = "alphabetic";
     playerScore.maxWidth = 1000;    //fix for Chrome 17
     playerScore.x = 211;
     playerScore.y = 20;
 
-    cpuScore = new Text('0', 'bold 20px Arial', '#A3FF24');
+    cpuScore = new createjs.Text('0', 'bold 20px Arial', '#A3FF24');
+    cpuScore.textBaseline = "alphabetic";
     cpuScore.maxWidth = 1000;   //fix for Chrome 17
     cpuScore.x = 262;
     cpuScore.y = 20;
@@ -300,8 +332,10 @@ function reset()
 
 function update()
 {
-  // Ball Movement
+  console.log("update!");
+  console.log(cpuScore)
 
+  // Ball Movement
   ball.x = ball.x + xSpeed;
   ball.y = ball.y + ySpeed;
 
