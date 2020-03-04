@@ -1,50 +1,43 @@
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width">
-    <title>Pong Mobile - HTML5 Canvas, Node.js, Express, Websockets Socket.io</title>
-    <link type="text/css" href="/css/style.css" rel="stylesheet"></link>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Pong Mobile - HTML5 Canvas, Node.js, Express, Websockets Socket.io</title>
+  <link type="text/css" href="/css/style.css" rel="stylesheet"></link>
 
-    <script src="/socket.io/socket.io.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
 
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.22.0/dist/phaser.min.js"></script>
 
-    <!-- CREATE.JS Tools -->
-    <script src="https://code.createjs.com/1.0.0/createjs.min.js"></script>
-    <script src="https://code.createjs.com/1.0.0/tweenjs.min.js"></script>
-    <script src="https://code.createjs.com/1.0.0/soundjs.min.js"></script>
-    <script src="https://code.createjs.com/1.0.0/preloadjs.min.js"></script>
+  <script src="/scripts/pong.js"></script>
+  <script src="/scripts/render.js"></script>
+  <script src="/scripts/initialize.js"></script>
+  <script src="/scripts/neonBall.js"></script>
+  <script src="/scripts/debugging.js"></script>
+  <script src="/scripts/neonRect.js"></script>
+  <script src="/scripts/score_gameplay.js"></script>
+</head>
 
+<!-- <body onload="Main();"> -->
+<body>
 
-    <script src="/scripts/pong.js"></script>
+  <div id="gameContainer">
+    <canvas id="pongCanvas" width="480" height="320"></canvas>
+  </div>
 
-    <!-- <script src="easel.js"></script> -->
-    <!-- <script src="Tween.js"></script>
-    <script src="sound.js"></script>
-    <script src="Main.js"></script> -->
-    <!-- <script>
-      $(function () {
-       var socket = io();
-       $('form').submit(function(e){
-         e.preventDefault(); // prevents page reloading
-         socket.emit('chat message', $('#m').val());
-         $('#m').val('');
-         return false;
-       });
-       socket.on('chat message', function(msg){
-         $('#messages').append($('<li>').text(msg));
-       });
-      });
-    </script> -->
-  </head>
+  <div class="modal" id="announcement-modal">
+    <div class="modal-content">
+      <span id="close-button">×</span>
+      <span id="modal-text">Game Over!</span>
+    </div>
+  </div>
 
-  <body onload="Main();">
-
-    <canvas id="Pong" width="480" height="320"></canvas>
-    <!-- <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off"></input><button>Send</button>
-    </form> -->
-  </body>
+  <div class="modal" id="debugging-modal">
+    <div class="modal-content">
+      <span id="debugging-modal-text">Debugging Info</span>
+    </div>
+  </div>
+</body>
 </html>
