@@ -75,6 +75,20 @@ function preload() {
     game.stage.backgroundColor = '#eee';
     // game.load.image('ball', 'img/ball.png');
     // game.load.image('paddle', 'img/paddle.png');
+
+    //
+    //  EVENT LISTENERS and KEYBOARD
+    //
+    cursors = this.input.keyboard.createCursorKeys();
+
+    document.addEventListener("keydown", keyDownHandler, false);
+    document.addEventListener("keyup", keyUpHandler, false);
+    document.addEventListener("mousemove", mouseMoveHandler, false);
+
+    this.keyLeft = this.input.keyboard.addKey(Phaser.KeyCode.A);
+    this.keyRight = this.input.keyboard.addKey(Phaser.KeyCode.D);
+    this.keyUp = this.input.keyboard.addKey(Phaser.KeyCode.W);
+    this.keyDown = this.input.keyboard.addKey(Phaser.KeyCode.S);
 }
 
 
@@ -122,20 +136,7 @@ function update() {
 
 
 
-//
-//  EVENT LISTENERS
-//
-this.cursors = this.input.keyboard.createCursorKeys();
 
-document.addEventListener("keydown", keyDownHandler, false);
-document.addEventListener("keyup", keyUpHandler, false);
-document.addEventListener("mousemove", mouseMoveHandler, false);
-
-
-this.keyLeft = this.input.keyboard.addKey(Phaser.KeyCode.A);
-this.keyRight = this.input.keyboard.addKey(Phaser.KeyCode.D);
-this.keyUp = this.input.keyboard.addKey(Phaser.KeyCode.W);
-this.keyDown = this.input.keyboard.addKey(Phaser.KeyCode.S);
 
 
 
