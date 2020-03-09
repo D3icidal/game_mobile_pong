@@ -14,48 +14,60 @@ var ballFieldCtx = ballFieldCanvas.getContext('2d');
 ballFieldCtx.globalCompositeOperation = "lighter"; //lighter: Where both shapes overlap the color is determined by adding color values.
 
 
-var ballObjectCanvas =
+var ballCanvas =
 document.createElement('CANVAS');
-ballObjectCanvas.width = (ballRadius * 2) + 20
-ballObjectCanvas.height = (ballRadius * 2) + 20
+var ballCtx = ballCanvas.getContext('2d');
+var bitmap;
+var sprite;
 
-var ballObjectCtx = ballObjectCanvas.getContext('2d');
+ballCanvas.width = (ballRadius * 2) + 20;
+ballCanvas.height = (ballRadius * 2) + 20;
 
 var drawCircle = function(x, border){
-  ballObjectCtx.beginPath();
-  ballObjectCtx.arc(x, x, ballRadius, 0, Math.PI*2);
-  ballObjectCtx.closePath();
-  ballObjectCtx.stroke();
+  ballCtx.beginPath();
+  ballCtx.arc(x, x, ballRadius, 0, Math.PI*2);
+  ballCtx.closePath();
+  ballCtx.stroke();
 }
 
 var neonBall = function(x,r,g,b,neonBorder) {
-  ballObjectCtx.shadowColor = "rgb("+r+","+g+","+b+")";
-  ballObjectCtx.shadowBlur = 10;
+  ballCtx.shadowColor = "rgb("+r+","+g+","+b+")";
+  ballCtx.shadowBlur = 10;
 
-  ballObjectCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
-  ballObjectCtx.lineWidth=7.5;
+  ballCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
+  ballCtx.lineWidth=7.5;
   drawCircle(x,neonBorder);
-  ballObjectCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
-  ballObjectCtx.lineWidth=6;
+  ballCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
+  ballCtx.lineWidth=6;
   drawCircle(x,neonBorder);
-  ballObjectCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
-  ballObjectCtx.lineWidth=4.5;
+  ballCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
+  ballCtx.lineWidth=4.5;
   drawCircle(x,neonBorder);
-  ballObjectCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
-  ballObjectCtx.lineWidth=1.5;
+  ballCtx.strokeStyle= "rgba("+r+","+g+","+b+",0.2)";
+  ballCtx.lineWidth=1.5;
   drawCircle(x,neonBorder);
-  ballObjectCtx.strokeStyle= '#fff';
-  ballObjectCtx.lineWidth=3;
+  ballCtx.strokeStyle= '#fff';
+  ballCtx.lineWidth=3;
   drawCircle(x,neonBorder);
 }
 
 
 function createNeonBall(r,g,b){
-  neonBall(ballObjectCanvas.width/2,r,g,b,1.5);
+  neonBall(ballCanvas.width/2,r,g,b,1.5);
 }
 
-function drawNeonBall(x,y){
-  ballFieldCtx.clearRect(0, 0, ballFieldCanvas.width, ballFieldCanvas.height);
-  ballFieldCtx.drawImage(ballObjectCanvas, x - (ballObjectCanvas.width/2), y - (ballObjectCanvas.height/2));
-  return ballFieldCanvas;
-}
+// make a phaser bitmap, and draw the ballcanvas to game canvas
+bitmap = new Phaser.BitmapData(game, '', ballCanvas.width, ballCanvas.height);
+bitmap.context.drawImage(ballCanvas, 0, 0);
+
+// use that bitmap as the texture for the sprite
+sprite = game.add.sprite(0, 0, bitmap);
+sprite.name = 'ball';
+sprite.x = game.world.centerX - sprite.width / 2;
+sprite.y = game.world.centerY - sprite.height / 2;
+//
+// function drawNeonBall(x,y){
+//   ballFieldCtx.clearRect(0, 0, ballFieldCanvas.width, ballFieldCanvas.height);
+//   ballFieldCtx.drawImage(ballCanvas, x - (ballCanvas.width/2), y - (ballCanvas.height/2));
+//   return ballFieldCanvas;
+// }
